@@ -1,0 +1,6 @@
+{
+  "port": "59041",
+  "store_path": "data/state.json",
+  "payment_timeout": "10m",
+  "scheduler_interval": "30s"
+}
