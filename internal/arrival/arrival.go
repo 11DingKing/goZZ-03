@@ -29,9 +29,11 @@ func (s *Service) SignOff(bookingID, signedBy string) (*domain.Arrival, error) {
 			return fmt.Errorf("%w: booking %s", domain.ErrNotFound, bookingID)
 		}
 		// Idempotent: if this booking was already signed off, return the
-		// existing arrival without re-validating state.
+		// existing arrival without re-validating state. Match by booking, not
+		// voyage: a voyage may carry several manifested bookings that each
+		// need their own sign-off record.
 		for _, ex := range d.Arrivals {
-			if ex.VoyageID == bk.VoyageID {
+			if ex.BookingID == bookingID {
 				ar = ex
 				return nil
 			}
