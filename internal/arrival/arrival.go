@@ -31,7 +31,7 @@ func (s *Service) SignOff(bookingID, signedBy string) (*domain.Arrival, error) {
 		// Idempotent: if this booking was already signed off, return the
 		// existing arrival without re-validating state.
 		for _, ex := range d.Arrivals {
-			if ex.VoyageID == bk.VoyageID {
+			if ex.BookingID == bookingID {
 				ar = ex
 				return nil
 			}
